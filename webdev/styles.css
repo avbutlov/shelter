@@ -331,17 +331,18 @@ body {
   width: 1600px;
   background: #ffffff;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .wrapper4-container {
   padding-top: 120px;
   padding-bottom: 140px;
-  width: 1062px;
+  width: 953px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-left: 269px;
 }
 
 .content3 {
