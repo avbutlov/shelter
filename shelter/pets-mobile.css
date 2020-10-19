@@ -1,0 +1,84 @@
+@media (max-width: 767px) {
+  .navigation {
+    display: none;
+  }
+
+  header {
+    width: 81%;
+    padding-right: 50px;
+    padding-left: 10px;
+  }
+
+  .title {
+    width: 72.6%;
+    position: relative;
+  }
+
+  h1::after {
+    content: "";
+    background: url("assets/Burger\ \(1\).svg");
+    position: absolute;
+    width: 30px;
+    height: 22px;
+    left: 229px;
+    top: 18px;
+  }
+
+  .content-2 {
+    width: 93.8%;
+    padding: 42px 10px;
+  }
+
+  .content-2 h2 {
+      width: 100%;
+      font-size: 25px;
+      line-height: 130%;
+      text-align: center;
+  }
+
+  .pet-pictures {
+      width: 90%;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    margin-bottom: 42px;
+  }
+
+
+  .pet-pictures div:not(:nth-child(-n + 3)) {
+    display: none;
+  }
+
+  .slider {
+      width: 100%;
+  }
+
+  footer {
+    width: 93.8%;
+    text-align: center;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.question {
+    padding: 0px;
+margin-left: 11px;
+margin-bottom: 40px;    
+}
+
+.visit {
+    width: 100%;
+    padding: 0px;
+    margin-bottom: 92px;
+}
+
+.visit h2 {
+    margin-left: 15px;
+}
+
+footer .footer-puppy {
+    width: 260px;
+    padding-left: 20px;
+}
+}
