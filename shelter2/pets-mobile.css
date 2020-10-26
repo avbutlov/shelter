@@ -31,7 +31,7 @@
   background: white;
   visibility: hidden;
   overflow-y: auto;
-  z-index: 11;
+  z-index: 1600;
   padding-bottom: 248px;
 }
 
