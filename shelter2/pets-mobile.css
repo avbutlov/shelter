@@ -1,7 +1,7 @@
 @media (max-width: 767px) {
   .overlay {
     position: fixed;
-    z-index: 5;
+    z-index: 1500;
     transition: .6s;
 }
 .enabled {
@@ -129,6 +129,7 @@ header {
     text-align: center;
     justify-content: center;
     align-items: center;
+  z-index: 2000;
 }
 
 .popup-container {
