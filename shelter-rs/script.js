@@ -205,6 +205,8 @@ let lastPage = document.querySelector('#last-page');
 let firstPage = document.querySelector('#first-page');
 let position = 0;
 
+if (counter) {
+
 const paginate = () => {
 
     if (+counter.innerHTML == 1) {
@@ -422,7 +424,7 @@ if (window.matchMedia('(max-width: 767px)').matches) {
     
     }
 
-
+}
 
 window.addEventListener('resize', function() {
     document.location.reload()
