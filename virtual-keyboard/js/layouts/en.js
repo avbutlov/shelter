@@ -334,5 +334,10 @@ export default [
   shift: null,
   code: 'Mute',
 },
+{
+  small: '<i class="material-icons">arrow_drop_down_circle</i>',
+  shift: null,
+  code: 'Close',
+},
 
 ];

@@ -170,6 +170,17 @@ export default class Keyboard {
 
    */
 
+
+if (code.match(/Close/)) {
+  document.querySelector(".keyboard").style.opacity = 0;
+  console.log('ddwd')
+} 
+
+document.querySelector('.output').addEventListener('click', function () {
+  document.querySelector(".keyboard").style.opacity = '1';
+})
+
+
       if (code.match(/Control|Alt|Caps/) && e.repeat) return;
 
       if (code.match(/Control/)) this.ctrKey = true;

@@ -106,7 +106,7 @@ main {
 }
 
 [data-code="ControlRight"] {
-  width: 6rem;
+  width: 7rem;
 }
 
 [data-code="Backspace"] {
@@ -122,11 +122,6 @@ main {
   width: 7.6rem;
 }
 
-[data-code="ArrowLeft"],
-[data-code="ArrowUp"],
-[data-code="ArrowDown"],
-[data-code="ArrowRight"] {
-}
 
 
 .active {
@@ -331,6 +326,10 @@ textarea.output {
 
 [data-code="Win"] {
   width: 7.5rem;
+}
+
+[data-code="Close"] {
+  width: 5.5rem;
 }
 
 }
