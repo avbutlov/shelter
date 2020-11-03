@@ -172,12 +172,11 @@ export default class Keyboard {
 
 
 if (code.match(/Close/)) {
-  document.querySelector(".keyboard").style.opacity = 0;
-  console.log('ddwd')
+  document.querySelector(".keyboard").style.display = "none";
 } 
 
 document.querySelector('.output').addEventListener('click', function () {
-  document.querySelector(".keyboard").style.opacity = '1';
+  document.querySelector(".keyboard").style.display = 'grid';
 })
 
 
