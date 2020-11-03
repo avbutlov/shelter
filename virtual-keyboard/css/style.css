@@ -4,17 +4,37 @@
 }
 
 html {
-  font-size: 100%;
+  font-size: 10px;
   font-family: 'Ubuntu', Arial, sans-serif;
 }
 
 body {
-  background: #e0e0e0;
+  background: rgb(54,125,127);
 }
 
 main {
   width: 1020px;
   margin: auto;
+}
+
+.switch-theme {
+  background: url('/retro-wave-png-4.png');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+}
+
+.invisible {
+  display: none;
+}
+
+.switch-theme:hover {
+  transition: 1s;
 }
 
 .keyboard {
@@ -24,7 +44,7 @@ main {
   border: 1px solid;
   position: relative;
   overflow: hidden;
-  background: #2c2c2c;
+  background: rgb(221, 215, 215);
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -43,17 +63,13 @@ main {
 .keyboard__key {
   display: flex;
   cursor: pointer;
-  border-radius: 3px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgb(100,100,100) radial-gradient(circle at 0 0, rgba(255,255,255,.75), rgba(255,255,255,.35));
+  background: rgb(199, 193, 193);
   box-shadow: inset rgba(0,0,0,.75) -1px -1px 2px, inset rgba(255,255,255,.9) 1px 1px 2px, rgba(0,0,0,.8) 1px 1px 2px -1px;
   transition: all .2s ease;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
+  
   user-select: none;
 }
 
@@ -81,60 +97,60 @@ main {
 }
 
 [data-fn="true"] > .letter {
-  font-size: 16px;
+  font-size: 1.6rem;
 }
 
 [data-code="CapsLock"] {
-  width: 86px;
+  width: 8.6rem;
 }
 
 [data-code="ShiftLeft"] {
-  width: 100px;
+  width: 10rem;
 }
 
-[data-code="ShiftRight"] {
-  width: 120px;
+[data-code="Voice"] {
+  width: 12rem;
 }
 
 [data-code="Enter"] {
-  width: 100px;
+  width: 10rem;
 }
 
 [data-code="Tab"] {
-  width: 76px;
+  width: 7.6rem;
 }
 
 [data-code="ControlLeft"] {
-  width: 76px;
+  width: 7.6rem;
 }
 
 [data-code="ControlRight"] {
-  width: 60px;
+  width: 6rem;
 }
 
 [data-code="Backspace"] {
-  width: 115px;
+  width: 11.5rem;
 }
 
 [data-code="Space"] {
-  width: 420px;
+  width: 42rem;
 }
 
 [data-code="AltLeft"],
 [data-code="AltRight"] {
-  width: 76px;
+  width: 7.6rem;
 }
 
 [data-code="ArrowLeft"],
 [data-code="ArrowUp"],
 [data-code="ArrowDown"],
 [data-code="ArrowRight"] {
-  background: rgb(125, 253, 75);
 }
 
 
 .active {
-  background: rgb(60, 212, 0);
+  background:rgb(11, 207, 191);
+  color: white;
 }
 
 .letter {
@@ -199,6 +215,7 @@ textarea.output {
   -moz-transform: translateX(20px);
   -ms-transform: translateX(20px);
   -o-transform: translateX(20px);
+  display: none;
 }
 
 @keyframes fadeInOut {
@@ -226,4 +243,113 @@ textarea.output {
     -ms-transform: scale(2.5);
     -o-transform: scale(2.5);
 }
+}
+
+@media(max-width: 1080px) {
+  html {
+    font-size: 8px;
+  }
+
+
+  main {
+    width: 800px;
+  }
+
+  [data-fn="true"] > .letter {
+    font-size: 14px;
+  }
+
+}
+
+@media(max-width: 860px) {
+  
+
+
+  main {
+    width: 500px;
+    
+  }
+  .keyboard {
+    margin: 0 auto;
+    max-width: 480px;
+    display: grid;
+    grid-row-gap: 0.3rem;
+    padding: 1rem;
+  }
+
+  .keyboard__row {
+    grid-gap: 0.3rem;
+    grid-row-gap: 1rem;
+    height: 4.5rem;
+  }
+
+  [data-fn="true"] > .letter {
+    font-size: 14px;
+  }
+
+  [data-code="Tab"],
+  [data-code="ControlLeft"],
+  [data-code="AltLeft"] {
+    width: 5rem;
+  }
+
+  [data-code="CapsLock"] {
+    width: 9rem;
+  }
+
+  [data-code="Enter"] {
+    width: 6rem;
+  }
+
+  [data-code="Backspace"] {
+    width: 9.3rem;
+    }
+
+  [data-code="Voice"] {
+    width: 3rem;
+  }
+
+  [data-code="ShiftLeft"] {
+    width: 10rem;
+}
+
+
+  [data-code="Space"] {
+    width: 18rem;
+  }
+
+  .letter {
+    font-size: 15px;
+  }
+
+[data-code="ControlRight"] {
+  display: none;
+}
+
+[data-code="ShiftRight"] {
+  display: none;
+}
+
+
+[data-code="AltRight"] {
+  display: none;
+}
+
+[data-code="ArrowLeft"], [data-code="ArrowUp"], [data-code="ArrowDown"], [data-code="ArrowRight"] {
+  width: 7rem;
+
+}
+
+[data-code="AltLeft"] {
+  width: 8.5rem;
+}
+
+[data-code="Delete"] {
+  width: 5.5rem;
+}
+
+[data-code="Win"] {
+  width: 7.5rem;
+}
+
 }
