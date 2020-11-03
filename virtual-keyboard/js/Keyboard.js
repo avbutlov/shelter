@@ -32,28 +32,23 @@ export default class Keyboard {
       "language",
       langCode,
     ]);
-    
-    /*
     create(
       "audio",
       "",
       null,
       main,
       ["key", 1],
-      ["src", "/back-to-the-future-twinkle.mp3"]
+      ["src", "sounds/back-to-the-future-twinkle.mp3"]
     );
-    
-    */
-    create("audio", "", null, main, ["key", 2], ["src", "/tink.wav"]);
-    create("audio", "", null, main, ["key", 3], ["src", "/ride.wav"]);
-    create("audio", "", null, main, ["key", 4], ["src", "/snare.wav"]);
-    create("audio", "", null, main, ["key", 5], ["src", "/tom.wav"]);
-    create("audio", "", null, main, ["key", 6], ["src", "/hihat.wav"]);
-    create("audio", "", null, main, ["key", 7], ["src", "/openhat.wav"]);
-    create("audio", "", null, main, ["key", 8], ["src", "/kick.wav"]);
-    create("audio", "", null, main, ["key", 9], ["src", "/boom.wav"]);
-    create("audio", "", null, main, ["key", 10], ["src", "/tom.wav"]);
-    create("button", "switch-theme", null, main);
+    create("audio", "", null, main, ["key", 2], ["src", "sounds/tink.wav"]);
+    create("audio", "", null, main, ["key", 3], ["src", "sounds/ride.wav"]);
+    create("audio", "", null, main, ["key", 4], ["src", "sounds/snare.wav"]);
+    create("audio", "", null, main, ["key", 5], ["src", "sounds/tom.wav"]);
+    create("audio", "", null, main, ["key", 6], ["src", "sounds/hihat.wav"]);
+    create("audio", "", null, main, ["key", 7], ["src", "sounds/openhat.wav"]);
+    create("audio", "", null, main, ["key", 8], ["src", "sounds/kick.wav"]);
+    create("audio", "", null, main, ["key", 9], ["src", "sounds/boom.wav"]);
+    create("audio", "", null, main, ["key", 10], ["src", "sounds/tom.wav"]);
     
     document.body.prepend(main);
 
@@ -112,6 +107,8 @@ export default class Keyboard {
         this.switchLanguage();
       }
 
+
+
       if (code.match(/Mute/) && !this.isMute) {
         this.isMute = true;
         keyObj.div.innerHTML = '<i class="material-icons">volume_mute</i>';
@@ -139,7 +136,7 @@ export default class Keyboard {
           audio.currentTime = 0;
           audio.play();
         } else if (keyObj.code.match(/Caps/)) {
-          let audio = document.querySelector(`audio[data-key='10']`);
+          let audio = document.querySelector(`audio[data-key='1']`);
           audio.currentTime = 0;
           audio.play();
         } else if (keyObj.code.match(/Enter/)) {
@@ -160,6 +157,9 @@ export default class Keyboard {
           audio.play();
         }
       }
+
+    
+
 
       /*
 
