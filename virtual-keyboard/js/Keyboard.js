@@ -32,6 +32,8 @@ export default class Keyboard {
       "language",
       langCode,
     ]);
+    
+    /*
     create(
       "audio",
       "",
@@ -40,6 +42,8 @@ export default class Keyboard {
       ["key", 1],
       ["src", "/back-to-the-future-twinkle.mp3"]
     );
+    
+    */
     create("audio", "", null, main, ["key", 2], ["src", "/tink.wav"]);
     create("audio", "", null, main, ["key", 3], ["src", "/ride.wav"]);
     create("audio", "", null, main, ["key", 4], ["src", "/snare.wav"]);
@@ -135,7 +139,7 @@ export default class Keyboard {
           audio.currentTime = 0;
           audio.play();
         } else if (keyObj.code.match(/Caps/)) {
-          let audio = document.querySelector(`audio[data-key='1']`);
+          let audio = document.querySelector(`audio[data-key='10']`);
           audio.currentTime = 0;
           audio.play();
         } else if (keyObj.code.match(/Enter/)) {
