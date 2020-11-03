@@ -5,6 +5,20 @@
  * @param {HTMLElement} parent
  * @param  {...array} dataAttr
  */
+/*
+export default function create(el, classNames, child, parent, ...dataAttr) {
+  let element = null;
+  try {
+    element = document.createElement(el);
+  } catch (error) {
+    throw new Error("Unable to create HTML element! Give a proper tag name");
+  }
+
+  if (classNames) element.classList.add(classNames.split(" "));
+}
+
+
+*/
 
 export default function create(el, classNames, child, parent, ...dataAttr) {
   let element = null;
@@ -33,7 +47,7 @@ export default function create(el, classNames, child, parent, ...dataAttr) {
       if (attrValue === '') {
         element.setAttribute(attrName, '');
       }
-      if (attrName.match(/value|id|placeholder|cols|rows|autocorrect|spellcheck/)) {
+      if (attrName.match(/value|id|placeholder|cols|rows|autocorrect|spellcheck|src/)) {
         element.setAttribute(attrName, attrValue);
       } else {
         element.dataset[attrName] = attrValue;
@@ -42,3 +56,7 @@ export default function create(el, classNames, child, parent, ...dataAttr) {
   }
   return element;
 }
+
+
+
+

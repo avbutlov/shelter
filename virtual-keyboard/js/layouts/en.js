@@ -320,8 +320,19 @@ export default [
     code: 'ArrowRight',
   },
   {
-    small: 'Win',
+    small: 'ru',
     shift: null,
     code: 'Win',
   },
+{
+  small: '<i class="material-icons">mic</i>',
+  shift: null,
+  code: 'Mic',
+},
+{
+  small: '<i class="material-icons">volume_up</i>',
+  shift: null,
+  code: 'Mute',
+},
+
 ];
