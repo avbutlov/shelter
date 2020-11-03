@@ -37,8 +37,18 @@ export default class Keyboard {
       "",
       null,
       main,
+      ["key", 0],
+      ["src", "sounds/back2.mp3"]
+    );
+
+
+    create(
+      "audio",
+      "",
+      null,
+      main,
       ["key", 1],
-      ["src", "sounds/back-to-the-future-twinkle.mp3"]
+      ["src", "sounds/back.mp3"]
     );
     create("audio", "", null, main, ["key", 2], ["src", "sounds/tink.wav"]);
     create("audio", "", null, main, ["key", 3], ["src", "sounds/ride.wav"]);
@@ -135,10 +145,15 @@ export default class Keyboard {
           let audio = document.querySelector(`audio[data-key='3']`);
           audio.currentTime = 0;
           audio.play();
-        } else if (keyObj.code.match(/Caps/)) {
+        } else if (keyObj.code.match(/Caps/) && !this.isCaps) {
           let audio = document.querySelector(`audio[data-key='1']`);
           audio.currentTime = 0;
           audio.play();
+        } else if (keyObj.code.match(/Caps/) && this.isCaps) {
+            let audio = document.querySelector(`audio[data-key='0']`);
+            audio.currentTime = 0;
+            audio.play();
+          
         } else if (keyObj.code.match(/Enter/)) {
           let audio = document.querySelector(`audio[data-key='4']`);
           audio.currentTime = 0;
@@ -172,7 +187,8 @@ export default class Keyboard {
 
 
 if (code.match(/Close/)) {
-  document.querySelector(".keyboard").style.display = "none";
+  document.querySelector(".keyboard").style.display = 'none';
+  console.log('ddwd')
 } 
 
 document.querySelector('.output').addEventListener('click', function () {
