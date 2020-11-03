@@ -325,7 +325,7 @@ export default [
     code: 'Win',
   },
 {
-  small: '<i class="material-icons">mic</i>',
+  small: '<i class="material-icons">mic_off</i>',
   shift: null,
   code: 'Mic',
 },
