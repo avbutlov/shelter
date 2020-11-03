@@ -50,12 +50,3 @@
        url('./fonts/ubuntu-v14-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
        url('./fonts/ubuntu-v14-latin-700.svg#Ubuntu') format('svg'); /* Legacy iOS */
 }
-
-@font-face {
-  font-family: 'Window95'; /* Гарнитура шрифта */
-  src: local('Coubra');
-   /* Путь к файлу со шрифтом */
-   font-weight: bold;
-
-font-style: normal;
- }

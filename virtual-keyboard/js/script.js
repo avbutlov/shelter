@@ -56,7 +56,3 @@ rec.addEventListener("end", function(e) {
 });
 
 
-document.querySelector(".switch-theme").addEventListener('click', function () {
-  document.querySelector(".switch-theme").classList.add('invisible');
-  document.querySelector('link').href = '/css/style2.css'
-})

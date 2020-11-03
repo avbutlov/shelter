@@ -17,25 +17,6 @@ main {
   margin: auto;
 }
 
-.switch-theme {
-  background: url('/retro-wave-png-4.png');
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 100px;
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-}
-
-.invisible {
-  display: none;
-}
-
-.switch-theme:hover {
-  transition: 1s;
-}
 
 .keyboard {
   display: grid;
