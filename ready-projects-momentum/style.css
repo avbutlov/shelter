@@ -9,13 +9,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     text-align: center;
     height: 100vh;
     width: 100vw;
     background-size: cover;
     color: white;
     transition: background-image 1.5s ease-in-out;
+    min-height: 850px;
 }
 
 .time {
@@ -140,12 +141,17 @@ h2 {
     transform: scale(1.02)
 }
 
+.weather-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    margin-bottom: 10%;
+    margin-top: 0.5rem;
+}
+
 .weather {
-    width: 10%;
     opacity: 0.8;
-    position: absolute;
-    top: 2%;
-    left: 0.5%;
 }
 
 .weather-icon {
@@ -153,10 +159,11 @@ h2 {
 }
 
 @media (max-width: 1100px) {
+    .weather-wrapper {
+        justify-content: center;
+    }
     .weather {
         font-size: 14px;
-        width: 50%;
-        left: 27%;
         transition: 0.5s;
     }
 }
