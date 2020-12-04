@@ -51,20 +51,32 @@ function createCards() {
     const backCard = document.createElement('div');
     const rotateBtn = document.createElement('button');
     const cardName = document.createElement('span');
+    const mainPanel = document.createElement('div');
+    const bottomPanel = document.createElement('div');
+    const backBottomPanel = document.createElement('div');
 
     card.classList.add('card');
     frontCard.classList.add('front-card');
     cardName.classList.add('card-name');
     backCard.classList.add('back-card');
     rotateBtn.classList.add('rotate-btn', 'hidden');
+    mainPanel.classList.add('main-panel');
+    bottomPanel.classList.add('bottom-panel');
+    backBottomPanel.classList.add('bottom-panel');
 
     cardName.innerText = el;
-    backCard.innerHTML = 'back';
+    const backCardName = cardName.cloneNode(true);
+    bottomPanel.append(cardName);
+    bottomPanel.append(rotateBtn);
+    const backMainPanel = mainPanel.cloneNode(true);
     cardsWrapper.append(card);
     card.append(frontCard);
     card.append(backCard);
-    frontCard.append(cardName);
-    frontCard.append(rotateBtn);
+    frontCard.append(mainPanel);
+    frontCard.append(bottomPanel);
+    backCard.append(backMainPanel);
+    backCard.append(backBottomPanel);
+    backBottomPanel.append(backCardName);
   });
   document.body.append(cardsWrapper);
 }
@@ -95,24 +107,15 @@ function createWordsCards() {
 */
     for (let i = 0; i < frontCards.length; i += 1) {
       frontCards[i].querySelector('.card-name').innerText = cardsArr[i].word;
-      frontCards[i].style.background = `url(${cardsArr[i].image})`;
+      frontCards[i].querySelector('.main-panel').style.backgroundImage = `url(${cardsArr[i].image})`;
       frontCards[i].closest('.card').classList.add('word-card');
       frontCards[i].closest('.card').dataset.word = cardsArr[i].word;
-      backCards[i].innerHTML = cardsArr[i].translation;
-      backCards[i].style.background = `url(${cardsArr[i].image})`;
+      backCards[i].querySelector('.card-name').innerText = cardsArr[i].translation;
+      backCards[i].querySelector('.main-panel').style.backgroundImage = `url(${cardsArr[i].image})`;
       rotateBtns[i].classList.remove('hidden');
     }
 
     closeBurgerMenu();
-  } else {
-    const wordsInfo = cards.slice(1).flat();
-    wordsInfo.forEach((wordInfo) => {
-      if (wordInfo.word === this.dataset.word) {
-        const audio = new Audio(`${wordInfo.audioSrc}`);
-        audio.play();
-        audio.currentTime = 0;
-      }
-    });
   }
 }
 
@@ -156,26 +159,36 @@ cardsContainers.forEach((cardsContainer) => {
   });
 }
 
-function goToPlayMode() {
-  /*
-  const cardsContainers = document.querySelectorAll(".card");
-  const cardNames = document.querySelectorAll(".card-name");
-  const rotateBtns = document.querySelectorAll(".rotate-btn");
-    for (let i = 0; i < cardsContainers.length; i++) {
-      cardsContainers[i].classList.add("play-mode-card");
-      cardNames[i].classList.add("hidden");
-      rotateBtns[i].classList.add("hidden");
-    }
-    for (let i = 0; i < cardsContainers.length; i++) {
-      cardsContainers[i].classList.remove("play-mode-card");
-      cardNames[i].classList.remove("hidden");
-      rotateBtns[i].classList.remove("hidden");
-    }
-
-*/
-}
-
 function switchMode() {
+  let isPlay = true;
+  const cardsContainers = document.querySelectorAll('.card');
+  const switcher = document.querySelector('.switcher');
+  function train() {
+    const wordsInfo = cards.slice(1).flat();
+    wordsInfo.forEach((wordInfo) => {
+      if (wordInfo.word === this.dataset.word) {
+        const audio = new Audio(`${wordInfo.audioSrc}`);
+        audio.play();
+        audio.currentTime = 0;
+      }
+    });
+  }
+
+  function startPlay() {
+    cardsContainers.forEach((cardsContainer) => {
+      cardsContainer.classList.add('play-mode-card');
+      cardsContainer.querySelector('.main-panel').classList.add('play-main');
+      cardsContainer.querySelector('.bottom-panel').classList.add('play-bottom');
+    });
+  }
+
+  if (!isPlay) {
+    cardsContainers.forEach((cardsContainer) => {
+      cardsContainer.addEventListener('click', train);
+    });
+  } else {
+    startPlay();
+  }
 }
 
 function goToMenu() {
@@ -185,16 +198,17 @@ function goToMenu() {
   closeBurgerMenu();
   showWordsCards();
   rotateCard();
+  switchMode();
 }
 
 createCards();
 createHeader();
 showWordsCards();
 rotateCard();
-goToPlayMode();
+switchMode();
 
 document.querySelector('.switcher').addEventListener('click', switchMode);
-document.querySelector('.switcher').addEventListener('click', goToPlayMode);
+// document.querySelector('.switcher').addEventListener('click', goToPlayMode);
 document.querySelector('.menu-button').addEventListener('click', goToMenu);
 document.querySelector('.burger-btn').addEventListener('click', () => {
   const burgerMenu = document.querySelector('.burger-menu');
