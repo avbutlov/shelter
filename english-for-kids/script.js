@@ -197,7 +197,9 @@ function selectMode() {
         cardsContainers.forEach((cardsContainer) => {
             cardsContainer.classList.remove('play-mode-card');
             cardsContainer.querySelector('.main-panel').classList.remove('play-main');
-            cardsContainer.querySelector('.bottom-panel').classList.remove('play-bottom');
+            setTimeout(() => {
+                cardsContainer.querySelector('.bottom-panel').classList.remove('play-bottom');
+            }, 250)
 
         });
     }
