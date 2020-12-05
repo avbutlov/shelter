@@ -162,7 +162,7 @@ cardsContainers.forEach((cardsContainer) => {
 function switchMode() {
   let isPlay = true;
   const cardsContainers = document.querySelectorAll('.card');
-  const switcher = document.querySelector('.switcher');
+  // const switcher = document.querySelector('.switcher');
   function train() {
     const wordsInfo = cards.slice(1).flat();
     wordsInfo.forEach((wordInfo) => {
