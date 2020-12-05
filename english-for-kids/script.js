@@ -262,7 +262,6 @@ function selectMode() {
 
         frontCards.forEach((frontCard) => {
             frontCard.addEventListener("click", checkAnswers);
-            frontCard.classList.remove("right");
         })
 
 
@@ -321,7 +320,6 @@ function selectMode() {
 
 function goToMenu() {
     const frontCards = document.querySelectorAll(".front-card");
-    const cardsContainers = document.querySelectorAll(".card");
     const categoryNames = cards[0];
     for (let i = 0; i < frontCards.length; i++) {
         if (frontCards[i].closest(".card").classList.contains("word-card")) {

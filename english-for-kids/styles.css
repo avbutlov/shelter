@@ -7,7 +7,6 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    height: 100vh;
 }
 
 .burger-menu {
@@ -82,7 +81,7 @@ button {
 .cards-wrapper {
     display: flex;
     flex-wrap: wrap;
-    max-width: 1000px;
+    max-width: 1200px;
     justify-content: center;
 }
 
@@ -149,7 +148,10 @@ button {
     justify-content: space-around;
     align-items: center;
     background: rgb(13, 235, 87);
+    border: 2px soid black;
 }
+
+.word-card .bottom-panel {}
 
 .word-card .play-main {
     transition: .5s;
@@ -167,10 +169,6 @@ button {
     cursor: pointer;
 }
 
-.card:hover {
-    /* transform: rotateY(180deg); */
-}
-
 .start-btn {
     display: none;
     width: 100px;
@@ -178,6 +176,7 @@ button {
     border-radius: 50%;
     background: gold;
     cursor: pointer;
+    border: 3px solid black;
 }
 
 .word-wrapper .start-btn {
