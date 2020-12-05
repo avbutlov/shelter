@@ -1,8 +1,13 @@
 body {
+   
+    margin: 0 auto;
+
+}
+
+.wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto;
     width: 100vw;
     height: 100vh;
 }
@@ -117,10 +122,14 @@ button {
     backface-visibility: hidden;
     overflow: hidden;
     text-align: center;
-    background: #ffc728;
     color: #000;
     display: flex;
     flex-direction: column;
+}
+
+.word-card .front-card {
+    background: rgb(13, 235, 87);
+
 }
 
 .back-card {
@@ -141,14 +150,15 @@ button {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background: rgb(13, 235, 87);
 }
 
-.play-main {
+.word-card .play-main {
     transition: .5s;
     height: 100%;
 }
 
-.play-bottom {
+.word-card .play-bottom {
     display: none;
 }
 
@@ -161,4 +171,21 @@ button {
 
 .card:hover {
     /* transform: rotateY(180deg); */
+}
+
+.start-btn {
+    display: none;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: gold;
+    cursor: pointer;
+}
+
+.word-wrapper .start-btn {
+display: block;
+}
+
+.start-btn.hidden {
+    display: none;
 }
