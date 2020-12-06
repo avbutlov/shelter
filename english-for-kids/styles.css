@@ -1,10 +1,12 @@
 body {
+    margin: 0 auto;
+}
+
+.wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto;
     width: 100vw;
-    height: 100vh;
 }
 
 .burger-menu {
@@ -20,7 +22,6 @@ body {
     justify-content: flex-end;
     align-items: center;
     z-index: 1000;
-
 }
 
 .visible {
@@ -41,7 +42,6 @@ body {
 .visible-overlay {
     opacity: 1;
     z-index: 500;
-
 }
 
 .burger-content {
@@ -51,10 +51,9 @@ body {
     font-size: 32px;
 }
 
-.burger-content > span {
+.burger-content>span {
     margin-bottom: 20px;
     cursor: pointer;
-
 }
 
 header {
@@ -71,7 +70,7 @@ header {
     width: 32px;
     height: 32px;
     cursor: pointer;
-z-index: 1001;
+    z-index: 1001;
 }
 
 button {
@@ -82,17 +81,16 @@ button {
 .cards-wrapper {
     display: flex;
     flex-wrap: wrap;
-    max-width: 1000px;
+    max-width: 1200px;
     justify-content: center;
-    
 }
 
 .card {
     position: relative;
     width: 250px;
     height: 250px;
-margin-right: 10px;
-margin-bottom: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
     font-size: 32px;
     display: flex;
     align-items: center;
@@ -100,7 +98,8 @@ margin-bottom: 10px;
     cursor: pointer;
     border: 3px solid black;
     transform-style: preserve-3d;
-    transition: transform 0.8s ease-in-out;
+    transition: all 0.8s ease-in-out;
+    border-radius: 10px;
 }
 
 .play-mode-card {
@@ -111,19 +110,23 @@ margin-bottom: 10px;
     display: none;
 }
 
-.front-card, .back-card {
+.front-card,
+.back-card {
     position: absolute;
-  top: 0;  
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  overflow: hidden;
-  text-align: center;
-  background: #ffc728;
-  color: #000;
-  display: flex;
-  flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    overflow: hidden;
+    text-align: center;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+}
+
+.word-card .front-card {
+    background: rgb(13, 235, 87);
 }
 
 .back-card {
@@ -131,12 +134,12 @@ margin-bottom: 10px;
 }
 
 .main-panel {
+    transition: .5s;
     width: 100%;
     height: 167px;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
 }
-
 
 .bottom-panel {
     width: 100%;
@@ -144,28 +147,46 @@ margin-bottom: 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background: rgb(13, 235, 87);
+    border: 2px soid black;
 }
 
-.play-main {
+.word-card .bottom-panel {}
+
+.word-card .play-main {
+    transition: .5s;
     height: 100%;
-    background-size: cover;
 }
 
-.play-bottom {
+.word-card .play-bottom {
     display: none;
 }
 
 .rotate-btn {
-
-background: url("img/refresh.png");
-width: 24px;
-height: 24px;
-cursor: pointer;
+    background: url("img/refresh.png");
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 }
 
+.start-btn {
+    display: none;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: gold;
+    cursor: pointer;
+    border: 3px solid black;
+}
 
+.word-wrapper .start-btn {
+    display: block;
+}
 
+.start-btn.hidden {
+    display: none;
+}
 
-.card:hover{
-   /* transform: rotateY(180deg); */
-  }
+.right {
+    filter: blur(4px);
+}
