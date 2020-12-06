@@ -170,7 +170,8 @@ function rotateCard() {
   const rotateBtns = document.querySelectorAll('.rotate-btn');
   rotateBtns.forEach((rotateBtn) => {
     const rotatedCard = rotateBtn.closest('.card');
-    rotateBtn.addEventListener('click', () => {
+    rotateBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       rotatedCard.style.transform = 'rotateY(180deg)';
       rotatedCard.classList.add('rotated-card');
       rotatedCard.addEventListener('mouseleave', () => {
