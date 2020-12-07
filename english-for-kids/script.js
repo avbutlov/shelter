@@ -120,21 +120,7 @@ function generateLayout() {
           }
         }
       }
-      /*
-    backCards.forEach((el) => {
-      el.innerHTML = cardsArr[i].translation;
-      el.style.background = `url(${cardsArr[i].image})`;
-      i++
-    })
-    let j = 0;
-    frontCards.forEach((el) => {
-      el.innerHTML = cardsArr[j].word;
-      el.style.background = `url(${cardsArr[j].image})`;
-      el.classList.add("word-card");
-      el.dataset.word = cardsArr[j].word;
-      j++;
-    });
-*/
+
       for (let i = 0; i < frontCards.length; i += 1) {
         frontCards[i].querySelector('.card-name').innerText = cardsArr[i].word;
         frontCards[i].querySelector(
@@ -207,18 +193,6 @@ function rotateCard() {
         }
       });
     });
-
-    /*
-cardsContainers.forEach((cardsContainer) => {
-  cardsContainer.addEventListener("mouseout", function () {
-    if (this.classList.contains("rotated-card")) {
-      this.style.transform = "rotateY(0deg)";
-      this.classList.remove("rotated-card");
-    }
-  })
-})
-
-*/
   });
 }
 
@@ -230,7 +204,6 @@ function selectMode() {
   const startBtn = document.querySelector('.start-btn');
   const wordsInfo = cards.slice(1).flat();
   const ratingPanel = document.querySelector('.rating-panel');
-  const wrapper = document.querySelector('.wrapper');
   const ratingWrapper = document.querySelector('.rating-wrapper');
   let failuresArr;
   let cardsSeq;

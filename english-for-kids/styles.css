@@ -1,7 +1,25 @@
+@font-face {
+    font-family: Gravitation;
+    src: url('fonts/gravitation_falls.ttf');
+}
+
+html {
+    font-family: Gravitation, "Georgia", sans-serif;
+    font-weight: 400;
+}
+
 body {
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    font-size: 32px;
+    background: url('img/main-back.jpg');
+  
+}
+
+button {
+    font-family: Gravitation;
+
 }
 
 .wrapper {
@@ -14,7 +32,7 @@ body {
     position: fixed;
     width: 50%;
     height: 100%;
-    background: red;
+    background: rgb(10, 226, 197);
     left: 0;
     transform: translate3d(-100vw, 0, 0);
     visibility: hidden;
@@ -115,14 +133,14 @@ button {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 3px solid black;
+    border: 5px solid black;
     transform-style: preserve-3d;
     transition: all 0.8s ease-in-out;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .play-mode-card {
-    border-color: red;
+    border: rgb(5, 234, 250) 5px dashed;
 }
 
 .hidden {
@@ -142,6 +160,8 @@ button {
     color: #000;
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
+
 }
 
 .word-card .front-card {
@@ -170,7 +190,6 @@ button {
     border: 2px soid black;
 }
 
-.word-card .bottom-panel {}
 
 .word-card .play-main {
     transition: .5s;
@@ -193,9 +212,11 @@ button {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: gold;
+    background: rgb(248, 232, 6);
     cursor: pointer;
     border: 3px solid black;
+    font-size: 32px;
+
 }
 
 .word-wrapper .start-btn {
@@ -206,23 +227,22 @@ button {
     display: none;
 }
 
-@keyframes pulse {
-    0% {
-      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
-      box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
-    }
-    70% {
-        -moz-box-shadow: 0 0 0 20px rgba(204,169,44, 0);
-        box-shadow: 0 0 0 20px rgba(204,169,44, 0);
-    }
-    100% {
-        -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
-        box-shadow: 0 0 0 0 rgba(204,169,44, 0);
-    }
-  }
+.started {
+    text-indent: 110%;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+}
 
-.pulsing {
-    animation: pulse 1s infinite;
+.started::before {
+    position: absolute;
+    content: '';
+    background-image: url('img/refresh.png');
+    background-position: center;
+    width: 64px;
+    height: 32px;
+    left: calc(50% - 32px);
+    background-repeat: no-repeat;
 }
 
 .right {
@@ -230,13 +250,22 @@ button {
 }
 
 .selected {
-    background: rgba(255, 167, 3, 0.651);
+    background: rgba(230, 255, 2, 0.904);
 }
 
 .category:hover, .menu-button:hover {
-    background: rgba(255, 167, 3, 0.651);
+    background: rgba(230, 255, 2, 0.904);
 
 }
+
+
+@media(max-width: 1000px) {
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+}
+
 
 @media(max-width: 800px) {
     .burger-menu {
@@ -253,3 +282,4 @@ button {
         margin-bottom: 5px;
     }
 }
+
