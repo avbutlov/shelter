@@ -1,18 +1,19 @@
 body {
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
 }
 
 .burger-menu {
     position: fixed;
     width: 50%;
-    height: 100vh;
+    height: 100%;
     background: red;
     left: 0;
     transform: translate3d(-100vw, 0, 0);
@@ -45,25 +46,30 @@ body {
 }
 
 .burger-content {
-    width: 50%;
+    width: 90%;
     flex-direction: column;
     display: flex;
     font-size: 32px;
+    height: 100%;
+    margin-top: 300px;
+    max-width: 540px;
+
 }
 
+
 .burger-content>span {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     cursor: pointer;
     padding: 5px;
 }
 
 header {
-    max-width: 1000px;
-    width: 50%;
-    height: 200px;
+    width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
 }
 
 .burger-btn {
@@ -84,6 +90,18 @@ button {
     flex-wrap: wrap;
     max-width: 1200px;
     justify-content: center;
+}
+
+.rating-wrapper {
+    width: 80%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.rating-panel {
+    justify-content: flex-end;
+    height: 40px;
+    overflow: hidden;
 }
 
 .card {
@@ -188,6 +206,25 @@ button {
     display: none;
 }
 
+@keyframes pulse {
+    0% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 20px rgba(204,169,44, 0);
+        box-shadow: 0 0 0 20px rgba(204,169,44, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
+  }
+
+.pulsing {
+    animation: pulse 1s infinite;
+}
+
 .right {
     filter: blur(4px);
 }
@@ -199,4 +236,20 @@ button {
 .category:hover, .menu-button:hover {
     background: rgba(255, 167, 3, 0.651);
 
+}
+
+@media(max-width: 800px) {
+    .burger-menu {
+        width: 100%;
+    }
+
+    .burger-content {
+        width: 95%;
+        max-width: none;
+        font-size: 32px;
+    }
+
+    .burger-content>span {
+        margin-bottom: 5px;
+    }
 }

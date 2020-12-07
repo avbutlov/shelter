@@ -15,7 +15,7 @@ function generateLayout() {
     cards[0].forEach((el) => {
       const category = document.createElement('span');
       category.innerHTML = el;
-      category.classList.add('category');
+      category.classList.add('category', 'menu-item');
       burgerContent.append(category);
     });
     switchBtn.setAttribute('type', 'checkbox');
@@ -27,9 +27,8 @@ function generateLayout() {
     burgerBtn.classList.add('burger-btn');
     burgerMenu.classList.add('burger-menu');
     burgerContent.classList.add('burger-content');
-    menuBtn.classList.add('menu-button');
+    menuBtn.classList.add('menu-button', 'menu-item');
     document.body.prepend(overlay);
-    document.body.prepend(header);
     document.body.prepend(burgerMenu);
     burgerMenu.append(burgerContent);
     burgerContent.prepend(menuBtn);
@@ -42,6 +41,15 @@ function generateLayout() {
       overlay.classList.toggle('visible-overlay');
     });
     wrapper.append(header);
+  }
+
+  function createRatingPanel() {
+    const ratingWrapper = document.createElement('div');
+    const ratingPanel = document.createElement('div');
+    ratingWrapper.classList.add('rating-wrapper');
+    ratingPanel.classList.add('rating-panel');
+    ratingWrapper.append(ratingPanel);
+    wrapper.append(ratingWrapper);
   }
 
   function createCards() {
@@ -94,21 +102,21 @@ function generateLayout() {
     if (!this.classList.contains('word-card')) {
       const categoryName = this.querySelector('.card-name') || this;
       const categoryText = categoryName.innerText;
-      const categories = document.querySelectorAll('.category');
-      let selectedCategory;
-      const previousCategory = document.querySelector('.selected');
+      const menuItems = document.querySelectorAll('.menu-item');
+      let selectedMenuItem;
+      const previousMenuItem = document.querySelector('.selected');
       const cardsArr = cards[cards[0].indexOf(categoryText) + 1];
       cardsArr.sort(() => Math.random() - 0.5);
       const frontCards = document.querySelectorAll('.front-card');
       const backCards = document.querySelectorAll('.back-card');
       const rotateBtns = document.querySelectorAll('.rotate-btn');
       const startBtn = document.querySelector('.start-btn');
-      if (this.classList.contains('category')) {
-        selectedCategory = this;
+      if (this.classList.contains('menu-item')) {
+        selectedMenuItem = this;
       } else {
         for (let i = 0; i < frontCards.length; i++) {
-          if (categories[i].innerHTML === categoryText) {
-            selectedCategory = categories[i];
+          if (menuItems[i].innerHTML === categoryText) {
+            selectedMenuItem = menuItems[i];
           }
         }
       }
@@ -145,11 +153,11 @@ function generateLayout() {
       }
 
       startBtn.classList.remove('started');
-      console.log(selectedCategory);
-      if (previousCategory) {
-        previousCategory.classList.remove('selected');
+      if (previousMenuItem) {
+        previousMenuItem.classList.remove('selected');
       }
-      selectedCategory.classList.add('selected');
+      selectedMenuItem.classList.add('selected');
+      resetRatingPanel();
       closeBurgerMenu();
     }
   }
@@ -169,6 +177,7 @@ function generateLayout() {
 
   document.body.append(wrapper);
   createHeader();
+  createRatingPanel();
   createCards();
   createStartBtn();
   showWordsCards();
@@ -220,6 +229,9 @@ function selectMode() {
   const switcher = document.querySelector('.switcher');
   const startBtn = document.querySelector('.start-btn');
   const wordsInfo = cards.slice(1).flat();
+  const ratingPanel = document.querySelector('.rating-panel');
+  const wrapper = document.querySelector('.wrapper');
+  const ratingWrapper = document.querySelector('.rating-wrapper');
   let failuresArr;
   let cardsSeq;
   let soundsArr;
@@ -236,20 +248,38 @@ function selectMode() {
     }
   }
 
+  function getCurrentWidth(el) {
+    return Number(window.getComputedStyle(el).width.match(/\d*/)[0]);
+  }
+
   function playAudio() {
     const audio = new Audio(soundsArr[0]);
     audio.play();
   }
 
+  function addImgToRating(src, size) {
+    const imgRight = new Image(size);
+    imgRight.src = src;
+    ratingPanel.append(imgRight);
+  }
+
   function checkAnswers() {
-    if (isPlay && this.closest('.card').classList.contains('word-card') && cardsSeq[0]) {
+    if (isPlay && this.closest('.card').classList.contains('word-card') && startBtn.classList.contains('started')) {
       if (this.closest('.card').dataset.word === cardsSeq[0].word) {
         this.classList.add('right');
         cardsSeq = cardsSeq.slice(1);
         soundsArr = soundsArr.slice(1);
+        addImgToRating('https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg', 22);
         playAudio();
       } else if (this.closest('.card').dataset.word !== cardsSeq[0].word && !this.classList.contains('right')) {
+        addImgToRating('https://upload.wikimedia.org/wikipedia/commons/b/bb/Broken_heart.svg', 24);
         failuresArr.push(this.closest('.card').dataset.word);
+      }
+
+      console.log(getCurrentWidth(ratingWrapper));
+
+      if (getCurrentWidth(ratingPanel) >= getCurrentWidth(ratingWrapper)) {
+        resetRatingPanel();
       }
 
       if (cardsSeq.length === 0) {
@@ -308,6 +338,8 @@ function selectMode() {
     isPlay = false;
     startBtn.classList.add('hidden');
     startBtn.classList.remove('started');
+    cardsSeq = [];
+    resetRatingPanel();
   }
 
   function switchMode() {
@@ -344,8 +376,14 @@ function goToMenu() {
       categories[i].classList.remove('selected');
     }
     startBtn.classList.remove('started');
+    resetRatingPanel();
   }
   closeBurgerMenu();
+}
+
+function resetRatingPanel() {
+  const ratingPanel = document.querySelector('.rating-panel');
+  ratingPanel.innerHTML = '';
 }
 
 generateLayout();
