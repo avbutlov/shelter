@@ -94,12 +94,24 @@ function generateLayout() {
     if (!this.classList.contains('word-card')) {
       const categoryName = this.querySelector('.card-name') || this;
       const categoryText = categoryName.innerText;
+      const categories = document.querySelectorAll('.category');
+      let selectedCategory;
+      const previousCategory = document.querySelector('.selected');
       const cardsArr = cards[cards[0].indexOf(categoryText) + 1];
       cardsArr.sort(() => Math.random() - 0.5);
       const frontCards = document.querySelectorAll('.front-card');
       const backCards = document.querySelectorAll('.back-card');
       const rotateBtns = document.querySelectorAll('.rotate-btn');
       const startBtn = document.querySelector('.start-btn');
+      if (this.classList.contains('category')) {
+        selectedCategory = this;
+      } else {
+        for (let i = 0; i < frontCards.length; i++) {
+          if (categories[i].innerHTML === categoryText) {
+            selectedCategory = categories[i];
+          }
+        }
+      }
       /*
     backCards.forEach((el) => {
       el.innerHTML = cardsArr[i].translation;
@@ -131,8 +143,13 @@ function generateLayout() {
         ).style.backgroundImage = `url(${cardsArr[i].image})`;
         rotateBtns[i].classList.remove('hidden');
       }
-      startBtn.classList.remove('started');
 
+      startBtn.classList.remove('started');
+      console.log(selectedCategory);
+      if (previousCategory) {
+        previousCategory.classList.remove('selected');
+      }
+      selectedCategory.classList.add('selected');
       closeBurgerMenu();
     }
   }
@@ -315,6 +332,7 @@ function goToMenu() {
   const frontCards = document.querySelectorAll('.front-card');
   const startBtn = document.querySelector('.start-btn');
   const categoryNames = cards[0];
+  const categories = document.querySelectorAll('.category');
   for (let i = 0; i < frontCards.length; i++) {
     if (frontCards[i].closest('.card').classList.contains('word-card')) {
       frontCards[i].closest('.card').classList.remove('word-card');
@@ -323,6 +341,7 @@ function goToMenu() {
       frontCards[i].querySelector('.main-panel').style.backgroundImage = 'none';
       frontCards[i].querySelector('.card-name').innerText = categoryNames[i];
       frontCards[i].classList.remove('right');
+      categories[i].classList.remove('selected');
     }
     startBtn.classList.remove('started');
   }

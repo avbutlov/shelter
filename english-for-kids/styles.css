@@ -54,6 +54,7 @@ body {
 .burger-content>span {
     margin-bottom: 20px;
     cursor: pointer;
+    padding: 5px;
 }
 
 header {
@@ -189,4 +190,13 @@ button {
 
 .right {
     filter: blur(4px);
+}
+
+.selected {
+    background: rgba(255, 167, 3, 0.651);
+}
+
+.category:hover, .menu-button:hover {
+    background: rgba(255, 167, 3, 0.651);
+
 }
