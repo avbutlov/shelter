@@ -334,7 +334,7 @@ const cards = [
     {
       word: 'soup',
       translation: 'суп',
-      image: 'img/soup.jpg',
+      image: 'img/soup.JPG',
       audioSrc: 'audio/soup.mp3',
     },
     {
