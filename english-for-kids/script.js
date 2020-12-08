@@ -287,9 +287,9 @@ function selectMode() {
     let soundsArr;
 
     function train() {
-        if (!isPlay && this.classList.contains('word-card')) {
+        if (!isPlay && this.closest('.card').classList.contains('word-card')) {
             wordsInfo.forEach((wordInfo) => {
-                if (wordInfo.word === this.dataset.word) {
+                if (wordInfo.word === this.closest('.card').dataset.word) {
                     const audio = new Audio(`${wordInfo.audioSrc}`);
                     audio.play();
                     audio.currentTime = 0;
@@ -434,7 +434,7 @@ function selectMode() {
     goTrain();
     switcher.addEventListener('click', switchMode);
     cardsContainers.forEach((cardsContainer) => {
-        cardsContainer.addEventListener('click', train);
+        cardsContainer.querySelector('.front-card').addEventListener('click', train);
     });
     startBtn.addEventListener('click', startGame);
     console.log(isPlay);
