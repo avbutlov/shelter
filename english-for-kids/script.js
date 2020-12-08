@@ -92,6 +92,7 @@ function generateLayout() {
       burgerBtn.classList.toggle('active');
     });
     wrapper.append(header);
+    overlay.addEventListener('click', closeBurgerMenu);
   }
 
   function createRatingPanel() {
