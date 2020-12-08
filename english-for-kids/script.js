@@ -1,5 +1,47 @@
 import cards from './cards.js';
 
+function closeBurgerMenu() {
+  const burgerMenu = document.querySelector('.burger-menu');
+  const overlay = document.querySelector('.overlay');
+  const burgerBtn = document.querySelector('.burger-btn');
+  if (burgerMenu.classList.contains('visible')) {
+    burgerMenu.classList.remove('visible');
+    burgerBtn.classList.remove('active');
+    overlay.classList.remove('visible-overlay');
+  }
+}
+
+function resetRatingPanel() {
+  const ratingPanel = document.querySelector('.rating-panel');
+  ratingPanel.innerHTML = '';
+}
+
+function goToMenu() {
+  const frontCards = document.querySelectorAll('.front-card');
+  const startBtn = document.querySelector('.start-btn');
+  const burgerBtn = document.querySelector('.burger-btn');
+  const menuBtn = document.querySelector('.menu-button');
+  const categoryNames = cards[0];
+  const categories = document.querySelectorAll('.category');
+  for (let i = 0; i < frontCards.length; i += 1) {
+    if (frontCards[i].closest('.card').classList.contains('word-card')) {
+      const mainPageImages = cards[cards[0].indexOf(cards[0][i]) + 1];
+      frontCards[i].closest('.card').classList.remove('word-card');
+      frontCards[i].closest('.wrapper').classList.remove('word-wrapper');
+      frontCards[i].querySelector('.rotate-btn').classList.add('hidden');
+      frontCards[i].querySelector('.main-panel').style.backgroundImage = `url(${mainPageImages[0].image})`;
+      frontCards[i].querySelector('.card-name').innerText = categoryNames[i];
+      frontCards[i].classList.remove('right');
+      categories[i].classList.remove('selected');
+    }
+    startBtn.classList.remove('started');
+    burgerBtn.classList.remove('active');
+    menuBtn.classList.add('selected');
+    resetRatingPanel();
+  }
+  closeBurgerMenu();
+}
+
 function generateLayout() {
   const wrapper = document.createElement('div');
   wrapper.classList.add('wrapper');
@@ -19,7 +61,7 @@ function generateLayout() {
       burgerContent.append(category);
     });
     switchBtn.setAttribute('type', 'checkbox');
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i += 1) {
       const rect = document.createElement('div');
       rect.classList.add('rect');
       burgerBtn.append(rect);
@@ -60,8 +102,6 @@ function generateLayout() {
     ratingWrapper.append(ratingPanel);
     wrapper.append(ratingWrapper);
   }
-
-  
 
   function createCards() {
     const cardsWrapper = document.createElement('div');
@@ -183,17 +223,6 @@ function generateLayout() {
   showWordsCards();
 }
 
-function closeBurgerMenu() {
-  const burgerMenu = document.querySelector('.burger-menu');
-  const overlay = document.querySelector('.overlay');
-  const burgerBtn = document.querySelector('.burger-btn');
-  if (burgerMenu.classList.contains('visible')) {
-    burgerMenu.classList.remove('visible');
-    burgerBtn.classList.remove('active');
-    overlay.classList.remove('visible-overlay');
-  }
-}
-
 function rotateCard() {
   const rotateBtns = document.querySelectorAll('.rotate-btn');
   rotateBtns.forEach((rotateBtn) => {
@@ -256,35 +285,52 @@ function selectMode() {
 
   function checkAnswers() {
     if (isPlay && this.closest('.card').classList.contains('word-card') && startBtn.classList.contains('started')) {
+      const cardSound = new Audio();
       if (this.closest('.card').dataset.word === cardsSeq[0].word) {
+        cardSound.src = 'audio/correct.mp3';
         this.classList.add('right');
         cardsSeq = cardsSeq.slice(1);
         soundsArr = soundsArr.slice(1);
         addImgToRating('https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg', 22);
-        playAudio();
+        setTimeout(() => {
+          playAudio();
+        }, 500);
       } else if (this.closest('.card').dataset.word !== cardsSeq[0].word && !this.classList.contains('right')) {
         addImgToRating('https://upload.wikimedia.org/wikipedia/commons/b/bb/Broken_heart.svg', 24);
+        cardSound.src = 'audio/error.mp3';
         failuresArr.push(this.closest('.card').dataset.word);
       }
 
-      console.log(getCurrentWidth(ratingWrapper));
+      cardSound.play();
 
       if (getCurrentWidth(ratingPanel) >= getCurrentWidth(ratingWrapper)) {
         resetRatingPanel();
       }
 
       if (cardsSeq.length === 0) {
+        const finalWindow = document.createElement('div');
+        const errors = document.createElement('span');
+        finalWindow.classList.add('final');
         const finalImg = new Image(500);
+        const finalAudio = new Audio();
         finalImg.classList.add('final-img');
+        finalWindow.append(finalImg);
+        finalWindow.append(errors);
         wrapper.remove();
         if (failuresArr.length === 0) {
+          errors.innerText = '';
           finalImg.src = 'img/zoos.png';
+          finalAudio.src = 'audio/zelda.flac';
         } else {
+          const errorMessage = failuresArr.length === 1 ? 'error' : 'errors';
+          errors.innerText = `${failuresArr.length} ${errorMessage}. Try again!`;
+          finalAudio.src = 'audio/failure.mp3';
           finalImg.src = 'img/gnome.png';
         }
-        document.body.append(finalImg);
+        finalAudio.play();
+        document.body.append(finalWindow);
         setTimeout(() => {
-          finalImg.remove();
+          finalWindow.remove();
           document.body.append(wrapper);
           goToMenu();
         }, 5000);
@@ -361,37 +407,6 @@ function selectMode() {
   });
   startBtn.addEventListener('click', startGame);
   console.log(isPlay);
-}
-
-function goToMenu() {
-  const frontCards = document.querySelectorAll('.front-card');
-  const startBtn = document.querySelector('.start-btn');
-  const burgerBtn = document.querySelector('.burger-btn');
-  const menuBtn = document.querySelector('.menu-button');
-  const categoryNames = cards[0];
-  const categories = document.querySelectorAll('.category');
-  for (let i = 0; i < frontCards.length; i++) {
-    if (frontCards[i].closest('.card').classList.contains('word-card')) {
-      const mainPageImages = cards[cards[0].indexOf(cards[0][i]) + 1];
-      frontCards[i].closest('.card').classList.remove('word-card');
-      frontCards[i].closest('.wrapper').classList.remove('word-wrapper');
-      frontCards[i].querySelector('.rotate-btn').classList.add('hidden');
-      frontCards[i].querySelector('.main-panel').style.backgroundImage = `url(${mainPageImages[0].image})`;
-      frontCards[i].querySelector('.card-name').innerText = categoryNames[i];
-      frontCards[i].classList.remove('right');
-      categories[i].classList.remove('selected');
-    }
-    startBtn.classList.remove('started');
-    burgerBtn.classList.remove('active');
-    menuBtn.classList.add('selected');
-    resetRatingPanel();
-  }
-  closeBurgerMenu();
-}
-
-function resetRatingPanel() {
-  const ratingPanel = document.querySelector('.rating-panel');
-  ratingPanel.innerHTML = '';
 }
 
 generateLayout();

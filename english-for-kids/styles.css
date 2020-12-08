@@ -378,10 +378,25 @@ button {
   right: 0px;
 }
 
-.final-img {
+.final {
     position: absolute;
     top: calc(50% - 250px);
     left: calc(50% - 250px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.final span {
+  display: flex;
+  align-items: center;
+}
+
+.final-img {
+  margin-bottom: 10px;
 }
 
 @media (max-width: 1000px) {
