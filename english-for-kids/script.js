@@ -6,8 +6,8 @@ function generateLayout() {
 
   function createHeader() {
     const header = document.createElement('header');
-    const switchBtn = document.createElement('input');
-    const burgerBtn = document.createElement('button');
+    const switchBtn = document.createElement('div');
+    const burgerBtn = document.createElement('div');
     const burgerMenu = document.createElement('div');
     const burgerContent = document.createElement('div');
     const menuBtn = document.createElement('span');
@@ -19,26 +19,35 @@ function generateLayout() {
       burgerContent.append(category);
     });
     switchBtn.setAttribute('type', 'checkbox');
+    for (let i = 0; i < 3; i++) {
+      const rect = document.createElement('div');
+      rect.classList.add('rect');
+      burgerBtn.append(rect);
+    }
 
-    switchBtn.textContent = 'Train';
     menuBtn.textContent = 'Main menu';
+    switchBtn.innerHTML = `<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked>
+    <label class="onoffswitch-label" for="myonoffswitch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>`;
     overlay.classList.add('overlay');
-    switchBtn.classList.add('switcher');
+    switchBtn.classList.add('onoffswitch');
     burgerBtn.classList.add('burger-btn');
     burgerMenu.classList.add('burger-menu');
     burgerContent.classList.add('burger-content');
-    menuBtn.classList.add('menu-button', 'menu-item');
+    menuBtn.classList.add('menu-button', 'menu-item', 'selected');
     document.body.prepend(overlay);
     document.body.prepend(burgerMenu);
     burgerMenu.append(burgerContent);
     burgerContent.prepend(menuBtn);
     header.append(burgerBtn);
     header.append(switchBtn);
-
     menuBtn.addEventListener('click', goToMenu);
     burgerBtn.addEventListener('click', () => {
       burgerMenu.classList.toggle('visible');
       overlay.classList.toggle('visible-overlay');
+      burgerBtn.classList.toggle('active');
     });
     wrapper.append(header);
   }
@@ -52,10 +61,13 @@ function generateLayout() {
     wrapper.append(ratingWrapper);
   }
 
+  
+
   function createCards() {
     const cardsWrapper = document.createElement('div');
     cardsWrapper.classList.add('cards-wrapper');
     cards[0].forEach((el) => {
+      const mainPageImages = cards[cards[0].indexOf(el) + 1];
       const card = document.createElement('div');
       const frontCard = document.createElement('div');
       const backCard = document.createElement('div');
@@ -73,7 +85,7 @@ function generateLayout() {
       mainPanel.classList.add('main-panel');
       bottomPanel.classList.add('bottom-panel');
       backBottomPanel.classList.add('bottom-panel');
-
+      mainPanel.style.backgroundImage = `url(${mainPageImages[0].image})`;
       cardName.innerText = el;
       const backCardName = cardName.cloneNode(true);
       bottomPanel.append(cardName);
@@ -103,6 +115,7 @@ function generateLayout() {
       const categoryName = this.querySelector('.card-name') || this;
       const categoryText = categoryName.innerText;
       const menuItems = document.querySelectorAll('.menu-item');
+      const menuBtn = document.querySelector('.menu-button');
       let selectedMenuItem;
       const previousMenuItem = document.querySelector('.selected');
       const cardsArr = cards[cards[0].indexOf(categoryText) + 1];
@@ -139,6 +152,7 @@ function generateLayout() {
       }
 
       startBtn.classList.remove('started');
+      menuBtn.classList.remove('selected');
       if (previousMenuItem) {
         previousMenuItem.classList.remove('selected');
       }
@@ -172,8 +186,10 @@ function generateLayout() {
 function closeBurgerMenu() {
   const burgerMenu = document.querySelector('.burger-menu');
   const overlay = document.querySelector('.overlay');
+  const burgerBtn = document.querySelector('.burger-btn');
   if (burgerMenu.classList.contains('visible')) {
     burgerMenu.classList.remove('visible');
+    burgerBtn.classList.remove('active');
     overlay.classList.remove('visible-overlay');
   }
 }
@@ -200,11 +216,13 @@ function selectMode() {
   let isPlay;
   const cardsContainers = document.querySelectorAll('.card');
   const card = document.querySelector('.card');
-  const switcher = document.querySelector('.switcher');
+  const switcher = document.querySelector('.onoffswitch-label');
   const startBtn = document.querySelector('.start-btn');
   const wordsInfo = cards.slice(1).flat();
   const ratingPanel = document.querySelector('.rating-panel');
+  const wrapper = document.querySelector('.wrapper');
   const ratingWrapper = document.querySelector('.rating-wrapper');
+  let rotateDeg = 0;
   let failuresArr;
   let cardsSeq;
   let soundsArr;
@@ -256,9 +274,20 @@ function selectMode() {
       }
 
       if (cardsSeq.length === 0) {
+        const finalImg = new Image(500);
+        finalImg.classList.add('final-img');
+        wrapper.remove();
+        if (failuresArr.length === 0) {
+          finalImg.src = 'img/zoos.png';
+        } else {
+          finalImg.src = 'img/gnome.png';
+        }
+        document.body.append(finalImg);
         setTimeout(() => {
+          finalImg.remove();
+          document.body.append(wrapper);
           goToMenu();
-        }, 0);
+        }, 5000);
       }
     }
   }
@@ -272,7 +301,6 @@ function selectMode() {
       soundsArr.push(cardsSeq[i].audioSrc);
     }
   }
-
   function startGame() {
     if (!this.classList.contains('started')) {
       const frontCards = document.querySelectorAll('.front-card');
@@ -282,6 +310,8 @@ function selectMode() {
       });
       this.classList.add('started');
     }
+    this.style.transform = `rotate(${rotateDeg}deg)`;
+    rotateDeg += 360;
     playAudio();
   }
 
@@ -336,19 +366,24 @@ function selectMode() {
 function goToMenu() {
   const frontCards = document.querySelectorAll('.front-card');
   const startBtn = document.querySelector('.start-btn');
+  const burgerBtn = document.querySelector('.burger-btn');
+  const menuBtn = document.querySelector('.menu-button');
   const categoryNames = cards[0];
   const categories = document.querySelectorAll('.category');
   for (let i = 0; i < frontCards.length; i++) {
     if (frontCards[i].closest('.card').classList.contains('word-card')) {
+      const mainPageImages = cards[cards[0].indexOf(cards[0][i]) + 1];
       frontCards[i].closest('.card').classList.remove('word-card');
       frontCards[i].closest('.wrapper').classList.remove('word-wrapper');
       frontCards[i].querySelector('.rotate-btn').classList.add('hidden');
-      frontCards[i].querySelector('.main-panel').style.backgroundImage = 'none';
+      frontCards[i].querySelector('.main-panel').style.backgroundImage = `url(${mainPageImages[0].image})`;
       frontCards[i].querySelector('.card-name').innerText = categoryNames[i];
       frontCards[i].classList.remove('right');
       categories[i].classList.remove('selected');
     }
     startBtn.classList.remove('started');
+    burgerBtn.classList.remove('active');
+    menuBtn.classList.add('selected');
     resetRatingPanel();
   }
   closeBurgerMenu();

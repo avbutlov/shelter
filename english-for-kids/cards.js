@@ -1,5 +1,5 @@
 const cards = [
-  ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions', 'Food', 'Family'],
+  ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions', 'Food', 'Colors'],
   [{
     word: 'cry',
     translation: 'плакать',
@@ -293,6 +293,106 @@ const cards = [
     image: 'img/laugh.jpg',
     audioSrc: 'audio/laugh.mp3',
   },
+  ],
+  [
+    {
+      word: 'bread',
+      translation: 'хлеб',
+      image: 'img/bread.jpg',
+      audioSrc: 'audio/bread.mp3',
+    },
+    {
+      word: 'pizza',
+      translation: 'пицца',
+      image: 'img/pizza.jpg',
+      audioSrc: 'audio/pizza.mp3',
+    },
+    {
+      word: 'pasta',
+      translation: 'макароны',
+      image: 'img/pasta.jpg',
+      audioSrc: 'audio/pasta.mp3',
+    },
+    {
+      word: 'burger',
+      translation: 'бургер',
+      image: 'img/burger.jpg',
+      audioSrc: 'audio/burger.mp3',
+    },
+    {
+      word: 'meat',
+      translation: 'мясо',
+      image: 'img/meat.jpg',
+      audioSrc: 'audio/meat.mp3',
+    },
+    {
+      word: 'sausage',
+      translation: 'сосиска',
+      image: 'img/sausage.jpg',
+      audioSrc: 'audio/sausage.mp3',
+    },
+    {
+      word: 'soup',
+      translation: 'суп',
+      image: 'img/soup.jpg',
+      audioSrc: 'audio/soup.mp3',
+    },
+    {
+      word: 'egg',
+      translation: 'яйцо',
+      image: 'img/egg.jpg',
+      audioSrc: 'audio/egg.mp3',
+    },
+  ],
+  [
+    {
+      word: 'blue',
+      translation: 'голубой',
+      image: 'img/blue.jpg',
+      audioSrc: 'audio/blue.mp3',
+    },
+    {
+      word: 'black',
+      translation: 'черный',
+      image: 'img/black.jpg',
+      audioSrc: 'audio/black.mp3',
+    },
+    {
+      word: 'white',
+      translation: 'белый',
+      image: 'img/white.jpg',
+      audioSrc: 'audio/white.mp3',
+    },
+    {
+      word: 'orange',
+      translation: 'оранжевый',
+      image: 'img/orange.jpg',
+      audioSrc: 'audio/orange.mp3',
+    },
+    {
+      word: 'green',
+      translation: 'зеленый',
+      image: 'img/green.jpg',
+      audioSrc: 'audio/green.mp3',
+    },
+    {
+      word: 'red',
+      translation: 'красный',
+      image: 'img/red.jpg',
+      audioSrc: 'audio/red.mp3',
+    },
+    {
+      word: 'yellow',
+      translation: 'желтый',
+      image: 'img/yellow.jpg',
+      audioSrc: 'audio/yellow.mp3',
+    },
+    {
+      word: 'pink',
+      translation: 'розовый',
+      image: 'img/pink.jpg',
+      audioSrc: 'audio/pink.mp3',
+    },
   ],
 ];
 
