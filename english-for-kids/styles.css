@@ -85,7 +85,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 50px;
 }
 
@@ -238,6 +238,10 @@ button {
   cursor: pointer;
 }
 
+.start-wrapper {
+  height: 110px;
+}
+
 .start-btn {
   display: none;
   width: 110px;
@@ -256,6 +260,7 @@ button {
 .start-btn.hidden {
   display: none;
 }
+
 
 .started {
   text-indent: 110%;
@@ -399,7 +404,36 @@ button {
   margin-bottom: 10px;
 }
 
-@media (max-width: 1000px) {
+footer {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  margin-bottom: 0;
+}
+.rs-block {
+  order: 1;
+  width: 100px;
+}
+
+.author-block {
+  display: flex;
+  align-items: center;
+  font-size: 23px;
+  color: white;
+  order: 2;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.author-block a {
+  margin-right: 10px;
+}
+
+a {
+  color: white;
+  text-decoration: underline;
+}
+
+@media (max-width: 1115px) {
   body {
     background-size: cover;
     background-position: center;

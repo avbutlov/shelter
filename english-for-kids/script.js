@@ -144,10 +144,13 @@ function generateLayout() {
   }
 
   function createStartBtn() {
+    const startWrapper = document.createElement('div');
     const startBtn = document.createElement('button');
     startBtn.classList.add('start-btn');
+    startWrapper.classList.add('start-wrapper');
     startBtn.innerText = 'start';
-    wrapper.append(startBtn);
+    startWrapper.append(startBtn);
+    wrapper.append(startWrapper);
   }
 
   function createWordsCards() {
@@ -167,7 +170,7 @@ function generateLayout() {
       if (this.classList.contains('menu-item')) {
         selectedMenuItem = this;
       } else {
-        for (let i = 0; i < frontCards.length; i++) {
+        for (let i = 0; i < frontCards.length; i += 1) {
           if (menuItems[i].innerHTML === categoryText) {
             selectedMenuItem = menuItems[i];
           }
@@ -202,6 +205,31 @@ function generateLayout() {
     }
   }
 
+  function createFooter() {
+    const footer = document.createElement('footer');
+    const authorBlock = document.createElement('div');
+    const githubLink = document.createElement('a');
+    const year = document.createElement('span');
+    const rsBlock = document.createElement('div');
+    const rsLink = document.createElement('a');
+    const rsLogo = document.createElement('img');
+
+    authorBlock.classList.add('author-block');
+    githubLink.innerText = 'avbutlov';
+    githubLink.setAttribute('href', 'https://github.com/avbutlov');
+    year.innerText = '2020';
+    rsBlock.classList.add('rs-block');
+    rsLink.setAttribute('href', 'https://rs.school/js/');
+    rsLogo.setAttribute('src', 'https://rs.school/images/rs_school_js.svg');
+    authorBlock.append(githubLink);
+    authorBlock.append(year);
+    rsBlock.append(rsLink);
+    rsLink.append(rsLogo);
+    footer.append(authorBlock);
+    footer.append(rsBlock);
+    wrapper.append(footer);
+  }
+
   function showWordsCards() {
     const cardsContainers = document.querySelectorAll('.card');
     const categories = document.querySelectorAll('.category');
@@ -220,6 +248,7 @@ function generateLayout() {
   createRatingPanel();
   createCards();
   createStartBtn();
+  createFooter();
   showWordsCards();
 }
 
