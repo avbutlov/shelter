@@ -1,13 +1,55 @@
 import cards from './cards.js';
 
+function closeBurgerMenu() {
+  const burgerMenu = document.querySelector('.burger-menu');
+  const overlay = document.querySelector('.overlay');
+  const burgerBtn = document.querySelector('.burger-btn');
+  if (burgerMenu.classList.contains('visible')) {
+    burgerMenu.classList.remove('visible');
+    burgerBtn.classList.remove('active');
+    overlay.classList.remove('visible-overlay');
+  }
+}
+
+function resetRatingPanel() {
+  const ratingPanel = document.querySelector('.rating-panel');
+  ratingPanel.innerHTML = '';
+}
+
+function goToMenu() {
+  const frontCards = document.querySelectorAll('.front-card');
+  const startBtn = document.querySelector('.start-btn');
+  const burgerBtn = document.querySelector('.burger-btn');
+  const menuBtn = document.querySelector('.menu-button');
+  const categoryNames = cards[0];
+  const categories = document.querySelectorAll('.category');
+  for (let i = 0; i < frontCards.length; i += 1) {
+    if (frontCards[i].closest('.card').classList.contains('word-card')) {
+      const mainPageImages = cards[cards[0].indexOf(cards[0][i]) + 1];
+      frontCards[i].closest('.card').classList.remove('word-card');
+      frontCards[i].closest('.wrapper').classList.remove('word-wrapper');
+      frontCards[i].querySelector('.rotate-btn').classList.add('hidden');
+      frontCards[i].querySelector('.main-panel').style.backgroundImage = `url(${mainPageImages[0].image})`;
+      frontCards[i].querySelector('.card-name').innerText = categoryNames[i];
+      frontCards[i].classList.remove('right');
+      categories[i].classList.remove('selected');
+    }
+    startBtn.classList.remove('started');
+    burgerBtn.classList.remove('active');
+    menuBtn.classList.add('selected');
+    resetRatingPanel();
+  }
+  closeBurgerMenu();
+}
+
 function generateLayout() {
   const wrapper = document.createElement('div');
   wrapper.classList.add('wrapper');
 
   function createHeader() {
     const header = document.createElement('header');
-    const switchBtn = document.createElement('input');
-    const burgerBtn = document.createElement('button');
+    const switchBtn = document.createElement('div');
+    const burgerBtn = document.createElement('div');
     const burgerMenu = document.createElement('div');
     const burgerContent = document.createElement('div');
     const menuBtn = document.createElement('span');
@@ -19,28 +61,38 @@ function generateLayout() {
       burgerContent.append(category);
     });
     switchBtn.setAttribute('type', 'checkbox');
+    for (let i = 0; i < 3; i += 1) {
+      const rect = document.createElement('div');
+      rect.classList.add('rect');
+      burgerBtn.append(rect);
+    }
 
-    switchBtn.textContent = 'Train';
     menuBtn.textContent = 'Main menu';
+    switchBtn.innerHTML = `<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked>
+    <label class="onoffswitch-label" for="myonoffswitch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>`;
     overlay.classList.add('overlay');
-    switchBtn.classList.add('switcher');
+    switchBtn.classList.add('onoffswitch');
     burgerBtn.classList.add('burger-btn');
     burgerMenu.classList.add('burger-menu');
     burgerContent.classList.add('burger-content');
-    menuBtn.classList.add('menu-button', 'menu-item');
+    menuBtn.classList.add('menu-button', 'menu-item', 'selected');
     document.body.prepend(overlay);
     document.body.prepend(burgerMenu);
     burgerMenu.append(burgerContent);
     burgerContent.prepend(menuBtn);
     header.append(burgerBtn);
     header.append(switchBtn);
-
     menuBtn.addEventListener('click', goToMenu);
     burgerBtn.addEventListener('click', () => {
       burgerMenu.classList.toggle('visible');
       overlay.classList.toggle('visible-overlay');
+      burgerBtn.classList.toggle('active');
     });
     wrapper.append(header);
+    overlay.addEventListener('click', closeBurgerMenu);
   }
 
   function createRatingPanel() {
@@ -56,6 +108,7 @@ function generateLayout() {
     const cardsWrapper = document.createElement('div');
     cardsWrapper.classList.add('cards-wrapper');
     cards[0].forEach((el) => {
+      const mainPageImages = cards[cards[0].indexOf(el) + 1];
       const card = document.createElement('div');
       const frontCard = document.createElement('div');
       const backCard = document.createElement('div');
@@ -73,7 +126,7 @@ function generateLayout() {
       mainPanel.classList.add('main-panel');
       bottomPanel.classList.add('bottom-panel');
       backBottomPanel.classList.add('bottom-panel');
-
+      mainPanel.style.backgroundImage = `url(${mainPageImages[0].image})`;
       cardName.innerText = el;
       const backCardName = cardName.cloneNode(true);
       bottomPanel.append(cardName);
@@ -92,10 +145,13 @@ function generateLayout() {
   }
 
   function createStartBtn() {
+    const startWrapper = document.createElement('div');
     const startBtn = document.createElement('button');
     startBtn.classList.add('start-btn');
+    startWrapper.classList.add('start-wrapper');
     startBtn.innerText = 'start';
-    wrapper.append(startBtn);
+    startWrapper.append(startBtn);
+    wrapper.append(startWrapper);
   }
 
   function createWordsCards() {
@@ -103,6 +159,7 @@ function generateLayout() {
       const categoryName = this.querySelector('.card-name') || this;
       const categoryText = categoryName.innerText;
       const menuItems = document.querySelectorAll('.menu-item');
+      const menuBtn = document.querySelector('.menu-button');
       let selectedMenuItem;
       const previousMenuItem = document.querySelector('.selected');
       const cardsArr = cards[cards[0].indexOf(categoryText) + 1];
@@ -114,7 +171,7 @@ function generateLayout() {
       if (this.classList.contains('menu-item')) {
         selectedMenuItem = this;
       } else {
-        for (let i = 0; i < frontCards.length; i++) {
+        for (let i = 0; i < frontCards.length; i += 1) {
           if (menuItems[i].innerHTML === categoryText) {
             selectedMenuItem = menuItems[i];
           }
@@ -139,6 +196,7 @@ function generateLayout() {
       }
 
       startBtn.classList.remove('started');
+      menuBtn.classList.remove('selected');
       if (previousMenuItem) {
         previousMenuItem.classList.remove('selected');
       }
@@ -146,6 +204,31 @@ function generateLayout() {
       resetRatingPanel();
       closeBurgerMenu();
     }
+  }
+
+  function createFooter() {
+    const footer = document.createElement('footer');
+    const authorBlock = document.createElement('div');
+    const githubLink = document.createElement('a');
+    const year = document.createElement('span');
+    const rsBlock = document.createElement('div');
+    const rsLink = document.createElement('a');
+    const rsLogo = document.createElement('img');
+
+    authorBlock.classList.add('author-block');
+    githubLink.innerText = 'avbutlov';
+    githubLink.setAttribute('href', 'https://github.com/avbutlov');
+    year.innerText = '2020';
+    rsBlock.classList.add('rs-block');
+    rsLink.setAttribute('href', 'https://rs.school/js/');
+    rsLogo.setAttribute('src', 'https://rs.school/images/rs_school_js.svg');
+    authorBlock.append(githubLink);
+    authorBlock.append(year);
+    rsBlock.append(rsLink);
+    rsLink.append(rsLogo);
+    footer.append(authorBlock);
+    footer.append(rsBlock);
+    wrapper.append(footer);
   }
 
   function showWordsCards() {
@@ -166,16 +249,8 @@ function generateLayout() {
   createRatingPanel();
   createCards();
   createStartBtn();
+  createFooter();
   showWordsCards();
-}
-
-function closeBurgerMenu() {
-  const burgerMenu = document.querySelector('.burger-menu');
-  const overlay = document.querySelector('.overlay');
-  if (burgerMenu.classList.contains('visible')) {
-    burgerMenu.classList.remove('visible');
-    overlay.classList.remove('visible-overlay');
-  }
 }
 
 function rotateCard() {
@@ -200,11 +275,13 @@ function selectMode() {
   let isPlay;
   const cardsContainers = document.querySelectorAll('.card');
   const card = document.querySelector('.card');
-  const switcher = document.querySelector('.switcher');
+  const switcher = document.querySelector('.onoffswitch-label');
   const startBtn = document.querySelector('.start-btn');
   const wordsInfo = cards.slice(1).flat();
   const ratingPanel = document.querySelector('.rating-panel');
+  const wrapper = document.querySelector('.wrapper');
   const ratingWrapper = document.querySelector('.rating-wrapper');
+  let rotateDeg = 0;
   let failuresArr;
   let cardsSeq;
   let soundsArr;
@@ -238,27 +315,55 @@ function selectMode() {
 
   function checkAnswers() {
     if (isPlay && this.closest('.card').classList.contains('word-card') && startBtn.classList.contains('started')) {
+      const cardSound = new Audio();
       if (this.closest('.card').dataset.word === cardsSeq[0].word) {
+        cardSound.src = 'audio/correct.mp3';
         this.classList.add('right');
         cardsSeq = cardsSeq.slice(1);
         soundsArr = soundsArr.slice(1);
         addImgToRating('https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg', 22);
-        playAudio();
+        setTimeout(() => {
+          playAudio();
+        }, 500);
       } else if (this.closest('.card').dataset.word !== cardsSeq[0].word && !this.classList.contains('right')) {
         addImgToRating('https://upload.wikimedia.org/wikipedia/commons/b/bb/Broken_heart.svg', 24);
+        cardSound.src = 'audio/error.mp3';
         failuresArr.push(this.closest('.card').dataset.word);
       }
 
-      console.log(getCurrentWidth(ratingWrapper));
+      cardSound.play();
 
       if (getCurrentWidth(ratingPanel) >= getCurrentWidth(ratingWrapper)) {
         resetRatingPanel();
       }
 
       if (cardsSeq.length === 0) {
+        const finalWindow = document.createElement('div');
+        const errors = document.createElement('span');
+        finalWindow.classList.add('final');
+        const finalImg = new Image(500);
+        const finalAudio = new Audio();
+        finalImg.classList.add('final-img');
+        finalWindow.append(finalImg);
+        finalWindow.append(errors);
+        wrapper.remove();
+        if (failuresArr.length === 0) {
+          errors.innerText = '';
+          finalImg.src = 'img/zoos.png';
+          finalAudio.src = 'audio/zelda.flac';
+        } else {
+          const errorMessage = failuresArr.length === 1 ? 'error' : 'errors';
+          errors.innerText = `${failuresArr.length} ${errorMessage}. Try again!`;
+          finalAudio.src = 'audio/failure.mp3';
+          finalImg.src = 'img/gnome.png';
+        }
+        finalAudio.play();
+        document.body.append(finalWindow);
         setTimeout(() => {
+          finalWindow.remove();
+          document.body.append(wrapper);
           goToMenu();
-        }, 0);
+        }, 5000);
       }
     }
   }
@@ -272,7 +377,6 @@ function selectMode() {
       soundsArr.push(cardsSeq[i].audioSrc);
     }
   }
-
   function startGame() {
     if (!this.classList.contains('started')) {
       const frontCards = document.querySelectorAll('.front-card');
@@ -282,6 +386,8 @@ function selectMode() {
       });
       this.classList.add('started');
     }
+    this.style.transform = `rotate(${rotateDeg}deg)`;
+    rotateDeg += 360;
     playAudio();
   }
 
@@ -331,32 +437,6 @@ function selectMode() {
   });
   startBtn.addEventListener('click', startGame);
   console.log(isPlay);
-}
-
-function goToMenu() {
-  const frontCards = document.querySelectorAll('.front-card');
-  const startBtn = document.querySelector('.start-btn');
-  const categoryNames = cards[0];
-  const categories = document.querySelectorAll('.category');
-  for (let i = 0; i < frontCards.length; i++) {
-    if (frontCards[i].closest('.card').classList.contains('word-card')) {
-      frontCards[i].closest('.card').classList.remove('word-card');
-      frontCards[i].closest('.wrapper').classList.remove('word-wrapper');
-      frontCards[i].querySelector('.rotate-btn').classList.add('hidden');
-      frontCards[i].querySelector('.main-panel').style.backgroundImage = 'none';
-      frontCards[i].querySelector('.card-name').innerText = categoryNames[i];
-      frontCards[i].classList.remove('right');
-      categories[i].classList.remove('selected');
-    }
-    startBtn.classList.remove('started');
-    resetRatingPanel();
-  }
-  closeBurgerMenu();
-}
-
-function resetRatingPanel() {
-  const ratingPanel = document.querySelector('.rating-panel');
-  ratingPanel.innerHTML = '';
 }
 
 generateLayout();
